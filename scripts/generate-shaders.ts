@@ -1,18 +1,20 @@
 #!/usr/bin/env node
 
-require('@mapbox/flow-remove-types/register');
+import '@mapbox/flow-remove-types/register';
 
-const path = require('path');
+import path from 'path';
 const outputPath = 'src/mbgl/programs';
-const zlib = require('zlib');
-const crypto = require('crypto');
+import zlib from 'zlib';
+import crypto from 'crypto';
 
-var shaders = require('../maplibre-gl-js/src/shaders');
+import shaders from '../maplibre-gl-js/src/shaders/shaders';
 
-require('./style-code');
+import './style-code';
 
 let concatenated = '';
-let offsets = {};
+
+
+let offsets: any = {};
 
 function basicMinify(src) {
     return src = src.trim() // strip whitespace at the start/end
@@ -48,18 +50,18 @@ for (const key in shaders) {
 
 // Overrides: The symbolSDF shader is used for two underlying programs.
 offsets.symbolSDFIcon = {
-    vertex: offsets.symbolSDF.vertex,
-    fragment: offsets.symbolSDF.fragment,
-    hash: offsets.symbolSDF.hash,
+    vertex: offsets.symbolSDF?.vertex,
+    fragment: offsets.symbolSDF?.fragment,
+    hash: offsets.symbolSDF?.hash,
     originalKey: 'symbolSDF',
     shaderName: 'symbol_sdf_icon',
     ShaderName: 'SymbolSDFIcon',
 };
 
 offsets.symbolSDFText = {
-    vertex: offsets.symbolSDF.vertex,
-    fragment: offsets.symbolSDF.fragment,
-    hash: offsets.symbolSDF.hash,
+    vertex: offsets.symbolSDF?.vertex,
+    fragment: offsets.symbolSDF?.fragment,
+    hash: offsets.symbolSDF?.hash,
     originalKey: 'symbolSDF',
     shaderName: 'symbol_sdf_text',
     ShaderName: 'SymbolSDFText',
@@ -74,6 +76,7 @@ const compressed = zlib.deflateSync(concatenated, {level: zlib.Z_BEST_COMPRESSIO
     .join(',\n    ')
     .trim();
 
+// @ts-ignore
 writeIfModified(path.join(outputPath, 'gl', 'shader_source.hpp'), `// NOTE: DO NOT CHANGE THIS FILE. IT IS AUTOMATICALLY GENERATED.
 
 #pragma once
@@ -92,6 +95,7 @@ struct ShaderSource;
 } // namespace mbgl
 `);
 
+// @ts-ignore
 writeIfModified(path.join(outputPath, 'gl', 'shader_source.cpp'), `// NOTE: DO NOT CHANGE THIS FILE. IT IS AUTOMATICALLY GENERATED.
 // clang-format off
 #include <mbgl/programs/gl/shader_source.hpp>
@@ -117,6 +121,7 @@ const char* shaderSource() {
 // clang-format on
 `);
 
+// @ts-ignore
 writeIfModified(path.join(outputPath, 'gl', 'preludes.hpp'), `// NOTE: DO NOT CHANGE THIS FILE. IT IS AUTOMATICALLY GENERATED.
 
 #pragma once
@@ -127,9 +132,9 @@ namespace mbgl {
 namespace programs {
 namespace gl {
 
-constexpr const uint8_t preludeHash[8] = {${offsets['prelude'].hash}};
-constexpr const auto vertexPreludeOffset = ${offsets['prelude'].vertex};
-constexpr const auto fragmentPreludeOffset = ${offsets['prelude'].fragment};
+constexpr const uint8_t preludeHash[8] = {${offsets['prelude']?.hash}};
+constexpr const auto vertexPreludeOffset = ${offsets['prelude']?.vertex};
+constexpr const auto fragmentPreludeOffset = ${offsets['prelude']?.fragment};
 
 } // namespace gl
 } // namespace programs
@@ -142,7 +147,8 @@ for (const key in offsets) {
 
     const { shaderName, ShaderName, originalKey } = offsets[key];
 
-    writeIfModified(path.join(outputPath, 'gl', `${shaderName}.cpp`), `// NOTE: DO NOT CHANGE THIS FILE. IT IS AUTOMATICALLY GENERATED.
+    // @ts-ignore
+writeIfModified(path.join(outputPath, 'gl', `${shaderName}.cpp`), `// NOTE: DO NOT CHANGE THIS FILE. IT IS AUTOMATICALLY GENERATED.
 // clang-format off
 #include <mbgl/programs/${shaderName}_program.hpp>
 #include <mbgl/programs/gl/preludes.hpp>
@@ -183,12 +189,12 @@ Backend::Create<gfx::Backend::Type::OpenGL>(const ProgramParameters& programPara
 
 // Uncompressed source of ${shaderName}.vertex.glsl:
 /*
-${shaders[originalKey].vertexSource}
+${shaders[originalKey]?.vertexSource}
 */
 
 // Uncompressed source of ${shaderName}.fragment.glsl:
 /*
-${shaders[originalKey].fragmentSource}
+${shaders[originalKey]?.fragmentSource}
 */
 // clang-format on
 `);

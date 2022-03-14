@@ -16,8 +16,8 @@ template <>
 struct ShaderSource<FillProgram> {
     static constexpr const char* name = "fill";
     static constexpr const uint8_t hash[8] = {0x87, 0xea, 0x65, 0x7f, 0x0c, 0x9b, 0x97, 0x5d};
-    static constexpr const auto vertexOffset = 12862;
-    static constexpr const auto fragmentOffset = 13506;
+    static constexpr const auto vertexOffset = 14792;
+    static constexpr const auto fragmentOffset = 15436;
 };
 
 constexpr const char* ShaderSource<FillProgram>::name;
@@ -39,10 +39,7 @@ Backend::Create<gfx::Backend::Type::OpenGL>(const ProgramParameters& programPara
 
 // Uncompressed source of fill.vertex.glsl:
 /*
-attribute vec2 a_pos;
-
-uniform mat4 u_matrix;
-
+attribute vec2 a_pos;uniform mat4 u_matrix;
 
 #ifndef HAS_UNIFORM_u_color
 uniform lowp float u_color_t;
@@ -61,26 +58,22 @@ varying lowp float opacity;
 uniform lowp float u_opacity;
 #endif
 
-
 void main() {
-    
+
 #ifndef HAS_UNIFORM_u_color
     color = unpack_mix_color(a_color, u_color_t);
 #else
     highp vec4 color = u_color;
 #endif
 
-    
+
 #ifndef HAS_UNIFORM_u_opacity
     opacity = unpack_mix_vec2(a_opacity, u_opacity_t);
 #else
     lowp float opacity = u_opacity;
 #endif
 
-
-    gl_Position = u_matrix * vec4(a_pos, 0, 1);
-}
-
+gl_Position=u_matrix*vec4(a_pos,0,1);}
 */
 
 // Uncompressed source of fill.fragment.glsl:
@@ -99,25 +92,21 @@ varying lowp float opacity;
 uniform lowp float u_opacity;
 #endif
 
-
 void main() {
-    
+
 #ifdef HAS_UNIFORM_u_color
     highp vec4 color = u_color;
 #endif
 
-    
+
 #ifdef HAS_UNIFORM_u_opacity
     lowp float opacity = u_opacity;
 #endif
 
-
-    gl_FragColor = color * opacity;
-
+gl_FragColor=color*opacity;
 #ifdef OVERDRAW_INSPECTOR
-    gl_FragColor = vec4(1.0);
+gl_FragColor=vec4(1.0);
 #endif
 }
-
 */
 // clang-format on
