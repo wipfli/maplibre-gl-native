@@ -16,5 +16,14 @@ jobs:
       - name: Download javadoc from Maven
         run: |
           wget https://repo1.maven.org/maven2/org/maplibre/gl/android-sdk/${{ github.event.inputs.version }}/android-sdk-${{ github.event.inputs.version }}-javadoc.jar -O javadoc.zip
-          unzip javadoc.zip
-          ls 
+      
+      - name: Unzip
+        run: |
+          mkdir -p unzipped/android/api/
+          unzip javadoc.zip -d unzipped/android/api/
+      
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
+        with:
+          branch: gh-pages
+          folder: unzipped
