@@ -47,7 +47,7 @@ jobs:
     - name: Commit and push changes
       run: |
         git add -u
-        git commit -m "Update MapLibre GL JS to `${{ github.event.inputs.commit }}`"
+        git commit -m "Update MapLibre GL JS to ${{ github.event.inputs.commit }}"
         git push --set-upstream origin update-gl-js-to-${{ github.event.inputs.commit }}
 
     - name: Create pull request
