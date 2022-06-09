@@ -26,6 +26,7 @@ jobs:
         git checkout -b update-gl-js-to-${{ github.event.inputs.commit }}
         npm ci --ignore-scripts
         cd maplibre-gl-js
+        git fetch origin
         git checkout ${{ github.event.inputs.commit }}
         yarn install
         cd ..
