@@ -33,7 +33,7 @@ jobs:
         cd ..
         node scripts/generate-shaders.js
         cd platform/ios/
-        npm ci --ignore-scripts
+        npm install --ignore-scripts
         node platform/darwin/scripts/generate-style-code.js
         node platform/darwin/scripts/update-examples.js
         git add -u
