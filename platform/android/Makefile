@@ -44,8 +44,8 @@ MBGL_ANDROID_APK_SUFFIX = $(if $(filter Release,$(BUILDTYPE)),release,debug)
 MBGL_ANDROID_CORE_TEST_DIR = MapboxGLAndroidSDK/.externalNativeBuild/cmake/$(buildtype)/$2/core-tests
 MBGL_ANDROID_BENCHMARK_DIR = MapboxGLAndroidSDK/.externalNativeBuild/cmake/$(buildtype)/$2/benchmark
 MBGL_ANDROID_STL ?= c++_static
-SOCKET_TIMEOUT = 360000
-CONNECTION_TIMEOUT = 360000
+SOCKET_TIMEOUT = 3600000
+CONNECTION_TIMEOUT = 3600000
 MBGL_ANDROID_GRADLE = ./gradlew --parallel --max-workers=$(JOBS) -Pmapbox.buildtype=$(buildtype) -Pmapbox.stl=$(MBGL_ANDROID_STL) -Dorg.gradle.internal.http.socketTimeout=$(SOCKET_TIMEOUT) -Dorg.gradle.internal.http.connectionTimeout=$(CONNECTION_TIMEOUT)
 MBGL_ANDROID_GRADLE_SINGLE_JOB = ./gradlew --parallel --max-workers=1 -Pmapbox.buildtype=$(buildtype) -Pmapbox.stl=$(MBGL_ANDROID_STL) -Dorg.gradle.internal.http.socketTimeout=$(SOCKET_TIMEOUT) -Dorg.gradle.internal.http.connectionTimeout=$(CONNECTION_TIMEOUT)
 
