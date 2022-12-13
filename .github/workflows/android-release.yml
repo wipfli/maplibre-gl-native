@@ -11,16 +11,16 @@ jobs:
         working-directory: platform/android
     container:
       image: ghcr.io/maplibre/android-ndk-r21b
-      credentials:
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.CR_PAT }}
+      #credentials:
+      #  username: ${{ github.repository_owner }}
+      #  password: ${{ secrets.CR_PAT }}
     env:
       LIBSYSCONFCPUS: 8
       JOBS: 8
       BUILDTYPE: Release
       IS_LOCAL_DEVELOPMENT: false
       # Avoids read timeouts, see https://github.com/maplibre/maplibre-gl-native/pull/591
-      MAVEN_OPTS: -Dmaven.wagon.httpconnectionManager.ttlSeconds=25 -Dmaven.wagon.http.retryHandler.count=3
+      MAVEN_OPTS: -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.http.retryHandler.class=standard -Dmaven.wagon.http.retryHandler.count=3 -Dmaven.wagon.httpconnectionManager.ttlSeconds=120
     steps:
 
       - uses: actions/checkout@v3
