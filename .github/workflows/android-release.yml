@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: self-hosted
     defaults:
       run:
         working-directory: platform/android
@@ -96,20 +96,6 @@ jobs:
             sed -i -e "s/^VERSION_NAME=.*/VERSION_NAME=${RELEASE_VERSION}/" MapboxGLAndroidSDK/gradle.properties
             echo "MapboxGLAndroidSDK/gradle.properties:"
             cat MapboxGLAndroidSDK/gradle.properties
-          fi
-        shell: bash
-
-      - name: Build package
-        run: make apackage
-
-      - name: Build release Test App
-        run: |
-          MAPLIBRE_DEVELOPER_CONFIG_XML='${{ secrets.MAPLIBRE_DEVELOPER_CONFIG_XML }}'
-          if [ -n "${MAPLIBRE_DEVELOPER_CONFIG_XML}" ]; then
-            echo "${MAPLIBRE_DEVELOPER_CONFIG_XML}" > MapboxGLAndroidSDKTestApp/src/main/res/values/developer-config.xml
-            make android
-          else
-            echo "No secrets.MAPLIBRE_DEVELOPER_CONFIG_XML variable set, skipping apk build..."
           fi
         shell: bash
       
