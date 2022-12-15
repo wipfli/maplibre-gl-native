@@ -34,7 +34,7 @@ jobs:
           java-version: '11'
 
       - name: Generate javadoc 2
-        run: make android-javadoc
+        run: make clean && make android-javadoc
 
       - name: Ensure source code revision
         run: scripts/ensure-code-revision.sh        
@@ -42,7 +42,7 @@ jobs:
         shell: bash 
 
       - name: Generate javadoc 3
-        run: make android-javadoc
+        run: make clean && make android-javadoc
 
       - name: Cache node modules
         uses: actions/cache@v3
