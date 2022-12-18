@@ -28,10 +28,10 @@ jobs:
       - name: Generate javadoc 1
         run: make clean && make android-javadoc
 
-      - uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: '11'
+      # - uses: actions/setup-java@v3
+      #   with:
+      #     distribution: 'zulu'
+      #     java-version: '11'
 
       - name: Generate javadoc 2
         run: make clean && make android-javadoc
