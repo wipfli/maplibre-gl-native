@@ -36,10 +36,10 @@ jobs:
       # - name: Generate javadoc 2
       #   run: make clean && make android-javadoc
 
-      - name: Ensure source code revision
-        run: scripts/ensure-code-revision.sh        
-        working-directory: platform/android
-        shell: bash 
+      # - name: Ensure source code revision
+      #   run: scripts/ensure-code-revision.sh        
+      #   working-directory: platform/android
+      #   shell: bash 
 
       # - name: Generate javadoc 3
       #   run: make clean && make android-javadoc
