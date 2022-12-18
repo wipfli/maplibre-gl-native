@@ -25,24 +25,24 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
-      - name: Generate javadoc 1
-        run: make clean && make android-javadoc
+      # - name: Generate javadoc 1
+      #   run: make clean && make android-javadoc
 
       # - uses: actions/setup-java@v3
       #   with:
       #     distribution: 'zulu'
       #     java-version: '11'
 
-      - name: Generate javadoc 2
-        run: make clean && make android-javadoc
+      # - name: Generate javadoc 2
+      #   run: make clean && make android-javadoc
 
       - name: Ensure source code revision
         run: scripts/ensure-code-revision.sh        
         working-directory: platform/android
         shell: bash 
 
-      - name: Generate javadoc 3
-        run: make clean && make android-javadoc
+      # - name: Generate javadoc 3
+      #   run: make clean && make android-javadoc
 
       - name: Cache node modules
         uses: actions/cache@v3
