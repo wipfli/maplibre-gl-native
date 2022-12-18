@@ -2,7 +2,7 @@
 
 MapLibre welcomes participation and contributions from everyone. Please read [`Contributing Guide`](https://github.com/maplibre/maplibre-gl-native/blob/main/CONTRIBUTING.md) to get started.
 
-## 9.6.0 - December 18, 2022
+## 9.6.1 - December 18, 2022
 
 ### ✨ Features and improvements
 
